@@ -6,7 +6,6 @@ import csv
 
 from dotenv import load_dotenv
 
-
 class ApiHandler():
     def __init__(self, api_endpoint) -> None:
         load_dotenv()
@@ -42,40 +41,4 @@ class ApiHandler():
                 writer.writerow(
                     [symbol, avg_high_price, high_price_volume, avg_low_price, low_price_volume, timestamp])
 
-            # Close the CSV file
             csvfile.close()
-
-    # def save_to_database(self, data):
-    #     with psycopg2.connect(self.db_path) as conn:
-    #         cursor = conn.cursor()
-    #
-    #         insert_query = '''
-    #             INSERT INTO market_data (item_id, avg_high_price, high_price_volume, avg_low_price, low_price_volume, timestamp)
-    #             VALUES (%s, %s, %s, %s, %s, %s)
-    #         '''
-    #
-    #         timestamp = data["timestamp"]
-    #
-    #         for symbol, data in data["data"].items():
-    #             avg_high_price = data["avgHighPrice"]
-    #             high_price_volume = data["highPriceVolume"]
-    #             avg_low_price = data["avgLowPrice"]
-    #             low_price_volume = data["lowPriceVolume"]
-    #
-    #         cursor.execute(insert_query,
-    #                        (symbol, avg_high_price, high_price_volume, avg_low_price, low_price_volume, timestamp))
-
-    # def update_database_with_api_data(self):
-    #     data = self.call_api()
-    #
-    #     self.save_to_database(data)
-
-    # def print_data(self):
-    #     with psycopg2.connect(self.db_path) as conn:
-    #         cursor = conn.cursor()
-    #
-    #         cursor.execute("SELECT * FROM market_data")
-    #
-    #         records = cursor.fetchall()
-    #         for record in records:
-    #             print(record)
