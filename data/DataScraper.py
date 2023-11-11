@@ -1,5 +1,4 @@
 import json
-import psycopg2
 import requests
 import os
 import csv
@@ -17,14 +16,17 @@ class ApiHandler():
             'User-Agent': 'Osrs AlgoTrading',
             'From': 'dcadams@memphis.edu'
         }
+        print("Starting api call...")
         response = requests.get(self.api_endpoint, headers=headers)
         if response.status_code == 200:
+            print("Data pulled successfully")
             return json.loads(response.content)
         else:
             response.raise_for_status()
 
     def write_to_csv(self, first_row=None):
         json_data = self.call_api()
+        print("Writing data to csv...")
         with open("market_data.csv", "a", newline="") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(
@@ -40,5 +42,5 @@ class ApiHandler():
 
                 writer.writerow(
                     [symbol, avg_high_price, high_price_volume, avg_low_price, low_price_volume, timestamp])
-
+            print("Writing csv data complete")
             csvfile.close()
